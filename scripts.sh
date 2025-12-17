@@ -53,7 +53,7 @@ case "$cmd" in
         printf "\n"
     ;;
     poll)
-        curl "http://localhost:9094/posts/poll" \
+        curl "http://localhost:9090/posts/poll/mizizov@gmail.com?password=671716Mi" \
         -X "POST" \
         -H "Content-type: application/json" \
         -d '{"maxPosts":10,"maxDuration":100000000}'
