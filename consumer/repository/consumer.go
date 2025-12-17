@@ -12,7 +12,7 @@ import (
 type Consumer interface {
 	Init(broker, groupID, topic string) error
 	Poll(max int, timeout time.Duration) ([]models.Post, error)
-	Run()
+	Listen()
 	Close() error
 }
 
@@ -46,7 +46,7 @@ func (kc *KafkaConsumer) Init(broker, groupID, topic string) error {
 	return nil
 }
 
-func (kc *KafkaConsumer) Run() {
+func (kc *KafkaConsumer) Listen() {
 
 	go func() {
 

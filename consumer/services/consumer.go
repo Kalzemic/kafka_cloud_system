@@ -27,14 +27,15 @@ func (service *KafkaConsumerService) Poll(c *gin.Context) {
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid poll request"})
+		return
 	}
 
-	posts := make([]models.Post, req.MaxPosts)
+	var posts []models.Post
 
 	posts, err = service.Consumer.Poll(req.MaxPosts, req.MaxDuration)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusFound, posts)
+	c.JSON(http.StatusOK, posts)
 }
