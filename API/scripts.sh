@@ -45,6 +45,20 @@ case "$cmd" in
         -X "DELETE"
         printf "\n"
         ;;
+    produce)
+        curl "http://localhost:9090/posts/produce/mizizov@gmail.com?password=671716Mi" \
+        -X "POST" \
+        -H "Content-type: application/json" \
+        -d '{"email":"mizizov@gmail.com","content":"first post","timestamp":"2025-12-17T10:42:31.527Z"}'
+        printf "\n"
+    ;;
+    poll)
+        curl "http://localhost:9094/posts/poll" \
+        -X "POST" \
+        -H "Content-type: application/json" \
+        -d '{"maxPosts":10,"maxDuration":100000000}'
+        printf "\n"
+    ;;
     *)
         ;;
 

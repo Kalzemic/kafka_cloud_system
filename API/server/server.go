@@ -27,7 +27,7 @@ func Init(us services.UserService, ps services.ProducerService, cs services.Cons
 
 	postsAPI := serv.engine.Group("/posts")
 	{
-		postsAPI.POST("produce", serv.producerService.CreatePost)
+		postsAPI.POST("produce/:email", serv.producerService.CreatePost)
 		postsAPI.POST("poll", serv.consumerService.Poll)
 	}
 
