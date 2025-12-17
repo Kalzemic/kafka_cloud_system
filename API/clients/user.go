@@ -21,8 +21,8 @@ type UserClient interface {
 }
 
 type APIUserClient struct {
-	baseURL string
-	client  *http.Client
+	BaseURL string
+	Client  *http.Client
 }
 
 func (uc *APIUserClient) CreateUser(user *models.UserRequest) (*models.UserResponse, error) {
@@ -31,7 +31,7 @@ func (uc *APIUserClient) CreateUser(user *models.UserRequest) (*models.UserRespo
 	if err != nil {
 		return nil, ErrRequestFailure
 	}
-	resp, err := uc.client.Post(uc.baseURL, "application/json", bytes.NewReader(data))
+	resp, err := uc.Client.Post(uc.BaseURL, "application/json", bytes.NewReader(data))
 	if err != nil {
 		return nil, ErrUserServiceUnavailable
 	}
@@ -64,12 +64,12 @@ func (uc *APIUserClient) UpdateUser(user *models.UserRequest) error {
 		return ErrRequestFailure
 	}
 
-	req, err := http.NewRequest("PUT", uc.baseURL+"/"+url.PathEscape(user.Email)+"?password="+url.QueryEscape(user.Password), bytes.NewReader(data))
+	req, err := http.NewRequest("PUT", uc.BaseURL+"/"+url.PathEscape(user.Email)+"?password="+url.QueryEscape(user.Password), bytes.NewReader(data))
 	if err != nil {
 		return ErrRequestFailure
 	}
 
-	resp, err := uc.client.Do(req)
+	resp, err := uc.Client.Do(req)
 	if err != nil {
 		return ErrUserServiceUnavailable
 	}
@@ -88,7 +88,7 @@ func (uc *APIUserClient) UpdateUser(user *models.UserRequest) error {
 }
 
 func (uc *APIUserClient) FindUser(email string, password string) (*models.UserResponse, error) {
-	resp, err := uc.client.Get(uc.baseURL + fmt.Sprintf("/%s?password=%s", url.PathEscape(email), url.QueryEscape(password)))
+	resp, err := uc.Client.Get(uc.BaseURL + fmt.Sprintf("/%s?password=%s", url.PathEscape(email), url.QueryEscape(password)))
 	if err != nil {
 		return nil, ErrUserServiceUnavailable
 	}
@@ -111,7 +111,7 @@ func (uc *APIUserClient) FindUser(email string, password string) (*models.UserRe
 
 func (uc *APIUserClient) GetAllUsers(page int, size int) ([]models.UserResponse, error) {
 
-	resp, err := uc.client.Get(uc.baseURL + fmt.Sprintf("?&page=%d&size=%d", page, size))
+	resp, err := uc.Client.Get(uc.BaseURL + fmt.Sprintf("?&page=%d&size=%d", page, size))
 	if err != nil {
 		return nil, ErrUserServiceUnavailable
 	}
@@ -133,7 +133,7 @@ func (uc *APIUserClient) GetAllUsers(page int, size int) ([]models.UserResponse,
 
 func (uc *APIUserClient) GetUsersbyRoles(role string, page int, size int) ([]models.UserResponse, error) {
 
-	resp, err := uc.client.Get(uc.baseURL + fmt.Sprintf("?criteria=%s&value=%s&page=%d&size=%d", url.QueryEscape("byRole"), url.QueryEscape(role), page, size))
+	resp, err := uc.Client.Get(uc.BaseURL + fmt.Sprintf("?criteria=%s&value=%s&page=%d&size=%d", url.QueryEscape("byRole"), url.QueryEscape(role), page, size))
 	if err != nil {
 		return nil, ErrUserServiceUnavailable
 	}
@@ -155,7 +155,7 @@ func (uc *APIUserClient) GetUsersbyRoles(role string, page int, size int) ([]mod
 
 func (uc *APIUserClient) GetbyEmailDomain(domain string, page int, size int) ([]models.UserResponse, error) {
 
-	resp, err := uc.client.Get(uc.baseURL + fmt.Sprintf("?criteria=%s&value=%s&page=%d&size=%d", url.QueryEscape("byEmailDomain"), url.QueryEscape(domain), page, size))
+	resp, err := uc.Client.Get(uc.BaseURL + fmt.Sprintf("?criteria=%s&value=%s&page=%d&size=%d", url.QueryEscape("byEmailDomain"), url.QueryEscape(domain), page, size))
 	if err != nil {
 		return nil, ErrUserServiceUnavailable
 	}
@@ -177,7 +177,7 @@ func (uc *APIUserClient) GetbyEmailDomain(domain string, page int, size int) ([]
 
 func (uc *APIUserClient) GetUsersbyRegistrationToday(page int, size int) ([]models.UserResponse, error) {
 
-	resp, err := uc.client.Get(uc.baseURL + fmt.Sprintf("?criteria=%s&page=%d&size=%d", url.QueryEscape("byRegistrationToday"), page, size))
+	resp, err := uc.Client.Get(uc.BaseURL + fmt.Sprintf("?criteria=%s&page=%d&size=%d", url.QueryEscape("byRegistrationToday"), page, size))
 	if err != nil {
 		return nil, ErrUserServiceUnavailable
 	}
@@ -198,12 +198,12 @@ func (uc *APIUserClient) GetUsersbyRegistrationToday(page int, size int) ([]mode
 }
 
 func (uc *APIUserClient) DeleteUsers() error {
-	req, err := http.NewRequest("DELETE", uc.baseURL, nil)
+	req, err := http.NewRequest("DELETE", uc.BaseURL, nil)
 	if err != nil {
 		return ErrRequestFailure
 	}
 
-	resp, err := uc.client.Do(req)
+	resp, err := uc.Client.Do(req)
 	if err != nil {
 		return ErrSendingFailure
 	}

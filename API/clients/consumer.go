@@ -12,8 +12,8 @@ type ConsumerClient interface {
 }
 
 type APIConsumerClient struct {
-	client  *http.Client
-	baseURL string
+	Client  *http.Client
+	BaseURL string
 }
 
 func (cc *APIConsumerClient) Poll(poll *models.PollRequest) ([]models.Post, error) {
@@ -21,7 +21,7 @@ func (cc *APIConsumerClient) Poll(poll *models.PollRequest) ([]models.Post, erro
 	if err != nil {
 		return nil, ErrRequestFailure
 	}
-	resp, err := cc.client.Post(cc.baseURL+"/poll", "application/json", bytes.NewReader(data))
+	resp, err := cc.Client.Post(cc.BaseURL+"/poll", "application/json", bytes.NewReader(data))
 	if err != nil {
 		return nil, ErrConsumerServiceUnavailable
 	}

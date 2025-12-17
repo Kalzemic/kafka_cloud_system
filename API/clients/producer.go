@@ -13,7 +13,7 @@ type ProducerClient interface {
 
 type APIProducerClient struct {
 	Client  *http.Client
-	baseURL string
+	BaseURL string
 }
 
 func (pc *APIProducerClient) CreatePost(post *models.Post) error {
@@ -22,7 +22,7 @@ func (pc *APIProducerClient) CreatePost(post *models.Post) error {
 	if err != nil {
 		return ErrRequestFailure
 	}
-	resp, err := pc.Client.Post(pc.baseURL+"/produce", "application/json", bytes.NewReader(data))
+	resp, err := pc.Client.Post(pc.BaseURL+"/produce", "application/json", bytes.NewReader(data))
 	if err != nil {
 		return ErrProducerServiceUnavailable
 	}

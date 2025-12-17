@@ -18,7 +18,7 @@ type UserService interface {
 }
 
 type APIUserService struct {
-	client clients.UserClient
+	Client clients.UserClient
 }
 
 func (us *APIUserService) CreateUser(c *gin.Context) {
@@ -28,7 +28,7 @@ func (us *APIUserService) CreateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request credentials"})
 		return
 	}
-	resp, err := us.client.CreateUser(&req)
+	resp, err := us.Client.CreateUser(&req)
 	if err != nil {
 		switch err {
 		case clients.ErrInvalidInput:
@@ -55,7 +55,7 @@ func (us *APIUserService) UpdateUser(c *gin.Context) {
 	email := c.Param("email")
 	req.Email = email
 
-	err = us.client.UpdateUser(&req)
+	err = us.Client.UpdateUser(&req)
 	if err != nil {
 		switch err {
 		case clients.ErrInvalidInput:
@@ -73,7 +73,7 @@ func (us *APIUserService) UpdateUser(c *gin.Context) {
 func (us *APIUserService) GetUserbyEmail(c *gin.Context) {
 	email := c.Param("email")
 	password := c.Query("password")
-	boundary, err := us.client.FindUser(email, password)
+	boundary, err := us.Client.FindUser(email, password)
 	if err != nil {
 		switch err {
 
@@ -109,7 +109,7 @@ func (us *APIUserService) GetAllUsers(c *gin.Context) {
 	switch criteria {
 	case "None":
 
-		responses, err = us.client.GetAllUsers(page, size)
+		responses, err = us.Client.GetAllUsers(page, size)
 
 	case "byEmailDomain":
 		domain := c.Query("value")
@@ -118,7 +118,7 @@ func (us *APIUserService) GetAllUsers(c *gin.Context) {
 			return
 		}
 
-		responses, err = us.client.GetbyEmailDomain(domain, page, size)
+		responses, err = us.Client.GetbyEmailDomain(domain, page, size)
 
 	case "byRole":
 		role := c.Query("value")
@@ -126,10 +126,10 @@ func (us *APIUserService) GetAllUsers(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid parameters"})
 			return
 		}
-		responses, err = us.client.GetUsersbyRoles(role, page, size)
+		responses, err = us.Client.GetUsersbyRoles(role, page, size)
 
 	case "byRegistrationToday":
-		responses, err = us.client.GetUsersbyRegistrationToday(page, size)
+		responses, err = us.Client.GetUsersbyRegistrationToday(page, size)
 
 	default:
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid criteria"})
@@ -145,7 +145,7 @@ func (us *APIUserService) GetAllUsers(c *gin.Context) {
 }
 
 func (us *APIUserService) DeleteUsers(c *gin.Context) {
-	err := us.client.DeleteUsers()
+	err := us.Client.DeleteUsers()
 	if err != nil {
 		c.JSON(http.StatusBadGateway, gin.H{"error": "failed to delete users"})
 		return
