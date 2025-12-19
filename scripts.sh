@@ -11,12 +11,12 @@ case "$cmd" in
         curl "http://localhost:9090/users" \
         -X "POST" \
         -H "Content-type: application/json" \
-        -d '{"email":"mizizov@gmail.com","password":"671716Mi","username":"kalzemic", "roles":["Student","User"]}' 
+        -d '{"email":"mizizov@gmail.com","password":"Archie_the_dog1","username":"Mikey", "roles":["Student","User"]}' 
         printf "\n"
         
         ;;
     login)
-        curl "http://localhost:9090/users/mizizov@gmail.com?password=671716Mi" \
+        curl "http://localhost:9090/users/mizizov@gmail.com?password=Archie_the_dog1" \
         -X "GET"
         printf "\n"
         ;;
@@ -46,17 +46,22 @@ case "$cmd" in
         printf "\n"
         ;;
     produce)
-        curl "http://localhost:9090/posts/produce/mizizov@gmail.com?password=671716Mi" \
+        curl "http://localhost:9090/posts/produce/mizizov@gmail.com?password=Archie_the_dog1" \
         -X "POST" \
         -H "Content-type: application/json" \
-        -d '{"email":"mizizov@gmail.com","content":"first post","timestamp":"2025-12-17T10:42:31.527Z"}'
+        -d '{"email":"mizizov@gmail.com","content":"first post"}'
         printf "\n"
     ;;
     poll)
-        curl "http://localhost:9090/posts/poll/mizizov@gmail.com?password=671716Mi" \
+        curl "http://localhost:9090/posts/poll/mizizov@gmail.com?password=Archie_the_dog1" \
         -X "POST" \
         -H "Content-type: application/json" \
         -d '{"maxPosts":10,"maxDuration":100000000}'
+        printf "\n"
+    ;;
+    listen)
+        curl "http://localhost:9090/posts/listen/mizizov@gmail.com?password=Archie_the_dog1" \
+        -X "GET"
         printf "\n"
     ;;
     *)

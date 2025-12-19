@@ -13,6 +13,11 @@ case $cmd in
         -d '{"maxPosts":10,"maxDuration":100000000}'
         printf "\n"
     ;;
+    listen)
+        curl "http://localhost:9094/posts/listen" \
+        -X "GET"
+        printf "\n"
+    ;;
     *)
     ;;
 

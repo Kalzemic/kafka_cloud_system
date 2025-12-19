@@ -4,6 +4,7 @@ import (
 	"kafka_service/models"
 	"kafka_service/repository"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -24,7 +25,7 @@ func (service *KafkaProducerService) CreatePost(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid post format"})
 		return
 	}
-
+	record.TimeStamp = time.Now()
 	err = service.Producer.ProducePost(record)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to record post"})

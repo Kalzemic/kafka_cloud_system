@@ -23,7 +23,7 @@ func main() {
 		fmt.Println("failed to initialize consumer repository")
 		return
 	}
-	service := services.KafkaConsumerService{Consumer: repo}
+	service := services.KafkaConsumerService{Consumer: &repo}
 
 	cserver := server.Init(&service)
 

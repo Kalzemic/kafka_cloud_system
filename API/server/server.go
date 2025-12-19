@@ -29,6 +29,7 @@ func Init(us services.UserService, ps services.ProducerService, cs services.Cons
 	{
 		postsAPI.POST("produce/:email", serv.producerService.CreatePost)
 		postsAPI.POST("poll/:email", serv.consumerService.Poll)
+		postsAPI.GET("/listen/:email", serv.consumerService.Listen)
 	}
 
 	return &serv

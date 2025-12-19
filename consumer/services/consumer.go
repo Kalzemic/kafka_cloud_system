@@ -3,22 +3,46 @@ package services
 import (
 	"consumer/models"
 	"consumer/repository"
+	"io"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 type ConsumerService interface {
+	Run(timeout time.Duration)
 	Listen(c *gin.Context)
 	Poll(c *gin.Context)
 }
 
 type KafkaConsumerService struct {
-	Consumer repository.KafkaConsumer
+	Consumer *repository.KafkaConsumer
+}
+
+func (service *KafkaConsumerService) Run(timeout time.Duration) {
+	service.Consumer.Run(timeout)
 }
 
 func (service KafkaConsumerService) Listen(c *gin.Context) {
-	panic("unimplemented")
+	ch := service.Consumer.Register()
+	defer service.Consumer.Unregister(ch)
+	c.Header("Content-Type", "text/event-stream")
+	c.Header("Cache-Control", "no-cache")
+	c.Header("Connection", "keep-alive")
+	c.Stream(func(w io.Writer) bool {
+		select {
+		case post, ok := <-ch:
+			if !ok {
+				return false
+			}
+			c.SSEvent("post", post)
+			return true
+		case <-c.Request.Context().Done():
+			return false
+		}
+
+	})
 }
 
 func (service *KafkaConsumerService) Poll(c *gin.Context) {

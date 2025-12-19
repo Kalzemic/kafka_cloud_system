@@ -2,6 +2,7 @@ package repository
 
 import (
 	"consumer/models"
+	"consumer/stream"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -11,8 +12,11 @@ import (
 
 type Consumer interface {
 	Init(broker, groupID, topic string) error
+
 	Poll(max int, timeout time.Duration) ([]models.Post, error)
-	Listen()
+	Run(timeout time.Duration)
+	Register() chan models.Post
+	Unregister(chan models.Post)
 	Close() error
 }
 
@@ -20,7 +24,7 @@ type KafkaConsumer struct {
 	Consumer *kafka.Consumer
 	Topic    string
 	GroupID  string
-	Stream   chan models.Post
+	Stream   *stream.Hub
 }
 
 func (kc *KafkaConsumer) Init(broker, groupID, topic string) error {
@@ -41,41 +45,38 @@ func (kc *KafkaConsumer) Init(broker, groupID, topic string) error {
 	kc.Consumer = c
 	kc.Topic = topic
 	kc.GroupID = groupID
-	kc.Stream = make(chan models.Post, 1000)
+	kc.Stream = stream.NewHub(1000)
 
 	return nil
 }
 
-func (kc *KafkaConsumer) Listen() {
+func (kc *KafkaConsumer) Run(timeout time.Duration) {
+
+	go kc.Stream.Run()
 
 	go func() {
-
-		fmt.Println("Listening Loop Initialized")
-
 		for {
-			msg, err := kc.Consumer.ReadMessage(-1)
+			msg, err := kc.Consumer.ReadMessage(timeout)
 			if err != nil {
-				fmt.Printf("kafka read error%v\n", err)
 				continue
 			}
-
 			var post models.Post
-			if err := json.Unmarshal(msg.Value, &post); err != nil {
-				fmt.Printf("Invalid message format%v\n", err)
+			if err = json.Unmarshal(msg.Value, &post); err != nil {
+				fmt.Printf("Invalid message format: %v\n", err)
 				continue
 			}
 
-			select {
-			case kc.Stream <- post:
-				//
-			default:
-				<-kc.Stream
-				kc.Stream <- post
-			}
-
+			kc.Stream.Broadcast(post)
 		}
 	}()
+}
 
+func (kc *KafkaConsumer) Register() chan models.Post {
+	return kc.Stream.Register(100)
+}
+
+func (kc *KafkaConsumer) Unregister(ch chan models.Post) {
+	kc.Stream.Unregister(ch)
 }
 
 func (kc *KafkaConsumer) Poll(max int, timeout time.Duration) ([]models.Post, error) {
@@ -102,6 +103,6 @@ func (kc *KafkaConsumer) Close() error {
 	if err != nil {
 		return err
 	}
-	close(kc.Stream)
+	kc.Stream.Close()
 	return nil
 }
