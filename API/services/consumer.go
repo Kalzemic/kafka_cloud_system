@@ -90,7 +90,7 @@ func (service APIConsumerService) Listen(c *gin.Context) {
 			return true
 
 		case <-ctx.Done():
-			// client disconnected, browser closed tab, etc.
+
 			return false
 		}
 	})

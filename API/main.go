@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/joho/godotenv"
 )
@@ -20,9 +19,9 @@ func main() {
 	producerURL := os.Getenv("PRODUCER_URL")
 	consumerURL := os.Getenv("CONSUMER_URL")
 
-	uc := &clients.APIUserClient{Client: &http.Client{Timeout: 5 * time.Second}, BaseURL: userURL}
-	pc := &clients.APIProducerClient{Client: &http.Client{Timeout: 5 * time.Second}, BaseURL: producerURL}
-	cc := &clients.APIConsumerClient{Client: &http.Client{Timeout: 5 * time.Second}, BaseURL: consumerURL}
+	uc := &clients.APIUserClient{Client: &http.Client{Timeout: 0}, BaseURL: userURL}
+	pc := &clients.APIProducerClient{Client: &http.Client{Timeout: 0}, BaseURL: producerURL}
+	cc := &clients.APIConsumerClient{Client: &http.Client{Timeout: 0}, BaseURL: consumerURL}
 
 	us := &services.APIUserService{Client: uc}
 	ps := &services.APIProducerService{UClient: uc, PClient: pc}
