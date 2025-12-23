@@ -53,7 +53,7 @@ export default function FeedPage() {
                 }
             )
             if (resp.ok) {
-                alert('post sent successfully')
+                console.log('post sent successfully')
             }
             else {
                 alert(`${resp.statusText}`)
@@ -75,7 +75,6 @@ export default function FeedPage() {
                     <div key={i} className="post">
                         <b>{p.email}</b>
                         <p>{p.content}</p>
-
                     </div>
                 ))}
             </div>

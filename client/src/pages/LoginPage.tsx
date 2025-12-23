@@ -39,12 +39,15 @@ export default function LoginPage() {
         <div className='login-page'>
             <h1>login page</h1>
             <form className='login-form' onSubmit={login}>
-                <label title="email">email:</label>
-                <input type="text" onChange={(e) => setEmail(e.target.value)} />
 
-                <label title="password"> password:</label>
-                <input type='password' onChange={(e) => setPassword(e.target.value)} />
-
+                <div className='segment'>
+                    <label title="email">email:</label>
+                    <input type="text" onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div className='segment'>
+                    <label title="password"> password:</label>
+                    <input type='password' onChange={(e) => setPassword(e.target.value)} />
+                </div>
                 <button type='submit'>login</button>
             </form>
         </div>
