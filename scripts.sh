@@ -46,10 +46,10 @@ case "$cmd" in
         printf "\n"
         ;;
     produce)
-        curl "http://localhost:9090/posts/produce/benaharoni@gmail.com?password=Archie_the_dog2" \
+        curl "http://localhost:9090/posts/produce/mizizov@gmail.com?password=Archie_the_dog1" \
         -X "POST" \
         -H "Content-type: application/json" \
-        -d '{"email":"benaharoni@gmail.com","content":"hello from ben aharoni, im sucking yardens little peeny weeny"}'
+        -d '{"email":"mizizov@gmail.com","content":"hello cloud computing class"}'
         printf "\n"
     ;;
     poll)
