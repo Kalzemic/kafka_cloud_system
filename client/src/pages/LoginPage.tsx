@@ -50,6 +50,9 @@ export default function LoginPage() {
                 </div>
                 <button type='submit'>login</button>
             </form>
+            <button className='create-button' 
+            onClick={()=>navigate('/create')}
+            type='button'>Create an Account</button>
         </div>
     )
 }

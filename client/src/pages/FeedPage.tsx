@@ -54,6 +54,7 @@ export default function FeedPage() {
             )
             if (resp.ok) {
                 console.log('post sent successfully')
+                setContent('')
             }
             else {
                 alert(`${resp.statusText}`)
@@ -65,6 +66,7 @@ export default function FeedPage() {
 
     return (
         <div className='feed-page'>
+            <h2>Welcome {email}</h2>
             <form className='post-form' onSubmit={createPost}>
                 <textarea rows={15} cols={60} onChange={(e) => setContent(e.target.value)}></textarea>
                 <button type='submit'>post</button>
