@@ -14,8 +14,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 500px;
+    width: 700px;
 
+}
+
+.login-page h2{
+    font-size: 35px;
 }
 
 .login-form {

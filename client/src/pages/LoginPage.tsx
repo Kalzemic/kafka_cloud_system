@@ -37,9 +37,10 @@ export default function LoginPage() {
 
     return (
         <div className='login-page'>
-            <h1>login page</h1>
+            <h1>Welcome to Kafka Chat</h1>
+            
             <form className='login-form' onSubmit={login}>
-
+                <h2>Login</h2>
                 <div className='segment'>
                     <label title="email">email:</label>
                     <input type="text" onChange={(e) => setEmail(e.target.value)} />
