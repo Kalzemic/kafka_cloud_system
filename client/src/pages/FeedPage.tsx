@@ -68,16 +68,22 @@ export default function FeedPage() {
         <div className='feed-page'>
             <h2>Welcome {email}</h2>
             <form className='post-form' onSubmit={createPost}>
-                <textarea rows={15} cols={60} onChange={(e) => setContent(e.target.value)}></textarea>
-                <button type='submit'>post</button>
+                <textarea className='post-area'rows={1} cols={65} onChange={(e) => setContent(e.target.value)}></textarea>
+                <button className='post-button' type='submit'>post</button>
             </form>
 
             <div className='live-posts'>
                 {posts.map((p, i) => (
+                    (p.email != email)?
                     <div key={i} className="post">
                         <b>{p.email}</b>
                         <p>{p.content}</p>
                     </div>
+                    :
+                    <div key={i} className="self-post">
+                    <b>{p.email}</b>
+                    <p>{p.content}</p>
+                </div>
                 ))}
             </div>
         </div>
