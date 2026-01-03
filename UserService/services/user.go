@@ -82,11 +82,12 @@ func (service *GinUserService) UpdateUser(c *gin.Context) {
 func (service *GinUserService) GetUserbyEmail(c *gin.Context) {
 	email := c.Param("email")
 	password := c.Query("password")
-	boundary, err := service.Repo.FindUser(email, password)
+	entity, err := service.Repo.FindUser(email, password)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "no user found with matching credentials"})
 		return
 	}
+	boundary := converter.ConverttoBoundary(*entity)
 	boundary.Password = ""
 	c.JSON(http.StatusOK, &boundary)
 }
