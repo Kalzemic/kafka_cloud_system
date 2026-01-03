@@ -11,7 +11,7 @@ case "$cmd" in
         curl "http://localhost:9090/users" \
         -X "POST" \
         -H "Content-type: application/json" \
-        -d '{"email":"mizizov@gmail.com","password":"Archie_the_dog1","username":"Mikey", "roles":["Student","User"]}' 
+        -d '{"email":"benaharoni@gmail.com","password":"Archie_the_dog2","username":"Ben", "roles":["Student","User"]}' 
         printf "\n"
         
         ;;
@@ -49,7 +49,7 @@ case "$cmd" in
         curl "http://localhost:9090/posts/produce/mizizov@gmail.com?password=Archie_the_dog1" \
         -X "POST" \
         -H "Content-type: application/json" \
-        -d '{"email":"mizizov@gmail.com","content":"first post"}'
+        -d '{"email":"mizizov@gmail.com","content":"hello cloud computing class"}'
         printf "\n"
     ;;
     poll)

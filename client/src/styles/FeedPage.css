@@ -1,0 +1,39 @@
+.feed-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 99%;
+    width: 99%;
+}
+
+.feed-page h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.live-posts {
+    margin-top: 30%;
+    margin-bottom: 20%;
+    height: 90%;
+
+}
+
+.post {
+    display: flex;
+    width: 400px;
+    height: 150px;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
