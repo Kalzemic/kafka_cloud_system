@@ -38,7 +38,7 @@ export default function LoginPage() {
     return (
         <div className='login-page'>
             <h1>Welcome to Kafka Chat</h1>
-            
+
             <form className='login-form' onSubmit={login}>
                 <h2>Login</h2>
                 <div className='segment'>
@@ -51,9 +51,9 @@ export default function LoginPage() {
                 </div>
                 <button type='submit'>login</button>
             </form>
-            <button className='create-button' 
-            onClick={()=>navigate('/create')}
-            type='button'>Create an Account</button>
+            <button className='create-button'
+                onClick={() => navigate('/create')}
+                type='button'>Create an Account</button>
         </div>
     )
 }

@@ -14,28 +14,29 @@
 }
 
 .post-form {
-    position:fixed;
+    position: fixed;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 45%;
-    gap:4px;
+    margin-top: 40%;
+    gap: 4px;
 }
 
-.post-area{
-    padding:13px;
+.post-area {
+    padding: 13px;
     border-radius: 8px;
 }
 
-.post-button{
-    padding:13px;
-    width:5rem;
+.post-button {
+    padding: 13px;
+    width: 5rem;
 }
+
 .live-posts {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap:2rem;
+    gap: 2rem;
     margin-top: 5%;
     margin-bottom: 20%;
     height: 90%;
@@ -45,22 +46,26 @@
 .self-post,
 .post {
     display: flex;
-    width: 400px;
-    height: 150px;
-    border-radius: 15px;
+    width: 350px;
+    height: 110px;
+    border-radius: 70px;
     outline-style: solid;
     outline-width: 2px;
     outline-color: white;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
-.post{
+
+
+.post {
     margin-left: 50%;
+    background: linear-gradient(to left, rgb(32, 66, 92), rgb(33, 33, 120));
 }
 
-.self-post{
+.self-post {
     margin-right: 50%;
+    background: linear-gradient(to left, rgb(144, 87, 197), rgb(107, 107, 198));
 }
-
