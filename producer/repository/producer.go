@@ -17,7 +17,7 @@ type Producer interface {
 type KafkaProducer struct {
 	Producer *kafka.Producer
 	Topic    string
-	//DeliveryChan chan kafka.Event
+	
 }
 
 func (kp *KafkaProducer) Init(broker, topic string) error {
@@ -58,22 +58,7 @@ func (kp *KafkaProducer) Close() {
 	fmt.Println("Closing Kafka producer")
 	kp.Producer.Flush(15 * 1000)
 	kp.Producer.Close()
-	//close(kp.DeliveryChan)
+	
 }
 
-// go func() {
-// 	for e := range kp.DeliveryChan {
-// 		switch ev := e.(type) {
-// 		case *kafka.Message:
-// 			if ev.TopicPartition.Error != nil {
-// 				fmt.Printf("Delivery Failed %s\n", ev.TopicPartition.Error.Error())
-// 			} else {
-// 				fmt.Printf(" Delivered %s [%d] @ %v\n",
-// 					*ev.TopicPartition.Topic, ev.TopicPartition.Partition, ev.TopicPartition.Offset)
-// 			}
-// 		default:
-// 			fmt.Printf("Kafka event:%v\n ", ev)
-// 		}
-// 	}
-// 	fmt.Println("Delivery channel listener exiting.")
-// }()
+

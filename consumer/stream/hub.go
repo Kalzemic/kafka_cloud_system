@@ -32,9 +32,7 @@ func (hub *Hub) Run() {
 			for ch := range hub.clients {
 				select {
 				case ch <- post:
-					//delivered
 				default:
-					//drop post, slow client
 				}
 			}
 		}

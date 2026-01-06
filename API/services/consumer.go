@@ -68,7 +68,7 @@ func (service APIConsumerService) Listen(c *gin.Context) {
 		}
 		return
 	}
-	ctx := c.Request.Context() // THIS is the key line
+	ctx := c.Request.Context() 
 
 	ch, err := service.CClient.Listen(ctx)
 	if err != nil {
