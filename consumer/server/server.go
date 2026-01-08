@@ -17,7 +17,7 @@ func Init(consumer services.ConsumerService) ConsumerServer {
 
 	api := server.Engine.Group("posts")
 	{
-		api.POST("poll", server.Consumer.Poll)
+		// api.POST("poll", server.Consumer.Poll)
 		api.GET("listen", server.Consumer.Listen)
 	}
 

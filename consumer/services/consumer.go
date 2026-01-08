@@ -1,10 +1,9 @@
 package services
 
 import (
-	"consumer/models"
+	
 	"consumer/repository"
 	"io"
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +12,7 @@ import (
 type ConsumerService interface {
 	Run(timeout time.Duration)
 	Listen(c *gin.Context)
-	Poll(c *gin.Context)
+	// Poll(c *gin.Context)
 }
 
 type KafkaConsumerService struct {
@@ -45,21 +44,21 @@ func (service KafkaConsumerService) Listen(c *gin.Context) {
 	})
 }
 
-func (service *KafkaConsumerService) Poll(c *gin.Context) {
-	var req models.PollRequest
+// func (service *KafkaConsumerService) Poll(c *gin.Context) {
+// 	var req models.PollRequest
 
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid poll request"})
-		return
-	}
+// 	err := c.ShouldBindJSON(&req)
+// 	if err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid poll request"})
+// 		return
+// 	}
 
-	var posts []models.Post
+// 	var posts []models.Post
 
-	posts, err = service.Consumer.Poll(req.MaxPosts, req.MaxDuration)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, posts)
-}
+// 	posts, err = service.Consumer.Poll(req.MaxPosts, req.MaxDuration)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, posts)
+// }

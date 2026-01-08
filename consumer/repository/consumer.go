@@ -79,24 +79,24 @@ func (kc *KafkaConsumer) Unregister(ch chan models.Post) {
 	kc.Stream.Unregister(ch)
 }
 
-func (kc *KafkaConsumer) Poll(max int, timeout time.Duration) ([]models.Post, error) {
-	posts := make([]models.Post, 0, max)
+// func (kc *KafkaConsumer) Poll(max int, timeout time.Duration) ([]models.Post, error) {
+// 	posts := make([]models.Post, 0, max)
 
-	for len(posts) < max {
-		msg, err := kc.Consumer.ReadMessage(timeout)
-		if err != nil {
-			break
-		}
-		var post models.Post
-		if err = json.Unmarshal(msg.Value, &post); err != nil {
-			fmt.Printf("Invalid message format: %v\n", err)
-			continue
-		}
+// 	for len(posts) < max {
+// 		msg, err := kc.Consumer.ReadMessage(timeout)
+// 		if err != nil {
+// 			break
+// 		}
+// 		var post models.Post
+// 		if err = json.Unmarshal(msg.Value, &post); err != nil {
+// 			fmt.Printf("Invalid message format: %v\n", err)
+// 			continue
+// 		}
 
-		posts = append(posts, post)
-	}
-	return posts, nil
-}
+// 		posts = append(posts, post)
+// 	}
+// 	return posts, nil
+// }
 
 func (kc *KafkaConsumer) Close() error {
 	err := kc.Consumer.Close()
