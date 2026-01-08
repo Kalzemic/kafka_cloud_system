@@ -11,7 +11,7 @@ case "$cmd" in
         curl "http://localhost:9090/users" \
         -X "POST" \
         -H "Content-type: application/json" \
-        -d '{"email":"mizizov@gmail.com","password":"Archie_the_dog1","username":"Mikey", "roles":["Student","User"]}' 
+        -d '{"email":"mizizov@gmail.com","password":"Archie_the_dog1","username":"Mikey2", "roles":["Student","User"]}' 
         printf "\n"
         
         ;;
